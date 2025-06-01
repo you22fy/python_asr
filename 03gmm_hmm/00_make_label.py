@@ -8,11 +8,12 @@
 # osモジュールをインポート
 import os
 
-def phone_to_int(label_str, 
-                 label_int, 
+
+def phone_to_int(label_str,
+                 label_int,
                  phone_list,
                  insert_sil=False):
-    ''' 
+    '''
     音素リストを使ってラベルファイルの
     音素を数値に変換する
     label_str:  文字で記述されたラベルファイル
@@ -30,7 +31,7 @@ def phone_to_int(label_str,
             # 読み込んだ行をスペースで区切り，
             # リスト型の変数にする
             text = line.split()
-            
+
             # リストの0番目の要素は発話IDなので，
             # そのまま出力する
             f_out.write('%s' % text[0])
@@ -49,8 +50,8 @@ def phone_to_int(label_str,
                         unknown phone %s\n' % u)
                     exit(1)
                 # 音素のインデクスを出力
-                f_out.write(' %d' % \
-                    (phone_list.index(u)))
+                f_out.write(' %d' %
+                            (phone_list.index(u)))
 
             # insert_silがTrueなら，
             # 末尾に0(ポーズ)を挿入
@@ -101,7 +102,6 @@ if __name__ == "__main__":
             # 音素リストの末尾に加える
             phone_list.append(phone)
 
-
     # 訓練/開発データの情報をリスト化
     label_str_list = [label_train_str,
                       label_dev_str]
@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
     # 訓練/開発データについてそれぞれ処理
     for (label_str, out_dir) \
-           in zip(label_str_list, out_dir_list):
+            in zip(label_str_list, out_dir_list):
 
         # 出力ディレクトリが存在しない場合は作成する
         os.makedirs(out_dir, exist_ok=True)
@@ -123,12 +123,11 @@ if __name__ == "__main__":
                 # リストに登録されている順番を
                 # その音素に対応する数値とする
                 f.write('%s %d\n' % (phone, i))
-     
+
         # ラベルの音素記号を数字に変換して出力
         label_int = \
             os.path.join(out_dir, 'text_int')
-        phone_to_int(label_str, 
-                     label_int, 
-                     phone_list, 
+        phone_to_int(label_str,
+                     label_int,
+                     phone_list,
                      insert_sil)
-
